@@ -8,13 +8,10 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTasksAction());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
-      <p className="text-3xl text-purple-600 font-black underline">
-        Hello world!
-      </p>
       <Routes>
         <Route path="/" element={<Home />}></Route>
       </Routes>
