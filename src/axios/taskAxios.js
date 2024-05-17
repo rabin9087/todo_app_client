@@ -2,11 +2,38 @@ import { axiosProcesser, rootAPI } from "./axios"
 const taskApi = rootAPI + "/task"
 
 export const addTask = (data) => {
-    console.log(data)
     return axiosProcesser({
         method: "post",
         url: taskApi,
         data
     })
+}
 
+export const getTasks = () => {
+    return axiosProcesser({
+        method: "get",
+        url: taskApi,
+    })
+}
+
+export const getATask = (_id) => {
+    return axiosProcesser({
+        method: "get",
+        url: taskApi + "/" + _id,
+    })
+}
+
+export const updateATask = (_id, data) => {
+    return axiosProcesser({
+        method: "patch",
+        url: taskApi + "/" + _id,
+        data
+    })
+}
+
+export const deleteATask = (_id) => {
+    return axiosProcesser({
+        method: "delete",
+        url: taskApi + "/" + _id,
+    })
 }

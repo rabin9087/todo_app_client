@@ -32,7 +32,7 @@ const Form = () => {
       <h3 className="text-3xl mb-2 text-center">Add Todo Item</h3>
       <hr />
 
-      <div className="flex items-center gap-2 m-2">
+      <div className="flex justify-center items-center gap-2 m-2">
         <input
           className="m-2 p-1 ps-3 border rounded-lg"
           type="text"
@@ -48,7 +48,7 @@ const Form = () => {
           onChange={handelOnChange}
           required
         >
-          <option value={""}>Select priority level</option>
+          <option value={""}>Select a priority level</option>
           {priorityLevel.map((item, i) => (
             <option key={i} value={item}>
               {item}

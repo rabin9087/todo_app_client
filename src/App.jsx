@@ -1,8 +1,15 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import { ToastContainer } from "react-toastify";
-
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getTasksAction } from "./store/task.action";
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTasksAction());
+  }, []);
+
   return (
     <div>
       <p className="text-3xl text-purple-600 font-black underline">
