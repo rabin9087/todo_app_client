@@ -9,17 +9,18 @@ export const addTask = (data) => {
     })
 }
 
-export const getTasks = () => {
+export const getTasks = (data) => {
     return axiosProcesser({
         method: "get",
-        url: taskApi,
+        url: data ? taskApi + "/" + data : taskApi,
+
     })
 }
 
 export const getATask = (_id) => {
     return axiosProcesser({
         method: "get",
-        url: taskApi + "/" + _id,
+        url: taskApi + "/edit/" + _id,
     })
 }
 

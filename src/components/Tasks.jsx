@@ -4,6 +4,7 @@
 import { FaRegEdit } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Tasks = () => {
   const [type, setType] = useState("all");
@@ -104,9 +105,11 @@ const Tasks = () => {
                   {item.status}
                 </td>
                 <td className="px-6 py-4 flex justify-center me-2">
-                  <button className="flex justify-center items-center gap-2 focus:outline-none bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900 text-white">
-                    <FaRegEdit /> Edit
-                  </button>
+                  <Link to={`/${item._id}`}>
+                    <button className="flex justify-center items-center gap-2 focus:outline-none bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900 text-white">
+                      <FaRegEdit /> Edit
+                    </button>
+                  </Link>
                 </td>
               </tr>
             ))}

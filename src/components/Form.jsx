@@ -2,9 +2,11 @@ import { useState } from "react";
 import { addTask } from "../axios/taskAxios";
 import { toast } from "react-toastify";
 
+const localStoragEmail = localStorage.getItem("randomEmail");
 const initialFormState = {
   task: "",
   priority: "",
+  email: localStoragEmail,
 };
 
 const Form = () => {
@@ -14,7 +16,6 @@ const Form = () => {
     const { name, value } = e.target;
 
     setForm({ ...form, [name]: value });
-    console.log(form);
   };
 
   const handelOnSubmit = async (e) => {
