@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { getATaskAction } from "../store/task.action";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { getATaskAction, updateATaskAction } from "../store/task.action";
 
+const initailState = {
+  task: "",
+  status: "",
+  priority: "",
+};
 const EditTask = () => {
-  const [form, setForm] = useState();
+  const [form, setForm] = useState(initailState);
 
   const { _id } = useParams();
-  console.log(_id);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { task } = useSelector((state) => state.taskInfo);
 
   const handelOnChange = (e) => {
@@ -17,36 +22,10 @@ const EditTask = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const inputs = [
-    {
-      label: "Task Name",
-      name: "task",
-      placeholder: "Edit task",
-      type: "text",
-      required: true,
-      value: form?.task,
-    },
+  const handelOnSubmit = () => {
+    return dispatch(updateATaskAction(_id, form)) && navigate("/");
+  };
 
-    {
-      label: "Task Status",
-      name: "status",
-      placeholder: "Change Status",
-      type: "text",
-      required: true,
-      value: form?.status,
-    },
-
-    {
-      label: "Task Priority",
-      name: "priority",
-      placeholder: "Change the task Priority level",
-      type: "text",
-      required: true,
-      value: form?.priority,
-    },
-  ];
-
-  console.log(task);
   useEffect(() => {
     if (_id !== "") {
       dispatch(getATaskAction(_id));
@@ -86,6 +65,15 @@ const EditTask = () => {
           <option value={"Medium"}>--Medium--</option>
           <option value={"High"}>--High--</option>
         </select>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="w-[120px] md:w-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={handelOnSubmit}
+          >
+            Update
+          </button>
+        </div>
       </div>
     </div>
   );

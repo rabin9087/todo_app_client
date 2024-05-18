@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { addTask } from "../axios/taskAxios";
-import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addTaskAction } from "../store/task.action";
 
-const localStoragEmail = localStorage.getItem("randomEmail");
+export const localStoragEmail = localStorage.getItem("randomEmail");
 const initialFormState = {
   task: "",
   priority: "",
@@ -10,6 +10,7 @@ const initialFormState = {
 };
 
 const Form = () => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState(initialFormState);
 
   const handelOnChange = (e) => {
@@ -21,17 +22,7 @@ const Form = () => {
   const handelOnSubmit = async (e) => {
     e.preventDefault();
 
-    const pending = addTask(form);
-    toast.promise(pending, {
-      pending: "Pleasw wait",
-    });
-
-    const { status, message } = await pending;
-    if (status === "success") {
-      setForm(initialFormState);
-      return toast[status](message);
-    }
-    toast(message);
+    dispatch(addTaskAction(form));
   };
 
   const priorityLevel = ["Low", "Medium", "High"];

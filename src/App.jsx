@@ -17,7 +17,6 @@ function App() {
     );
   };
 
-  console.log(localStoragEmail);
   const dispatch = useDispatch();
   useEffect(() => {
     if (localStoragEmail === "" || localStoragEmail === null) {
