@@ -5,14 +5,12 @@ import { FaRegEdit } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { MdDelete } from "react-icons/md";
 
-const Tasks = () => {
+const Tasks = ({ temp }) => {
   const [type, setType] = useState("all");
-  const { taskList } = useSelector((state) => state.taskInfo);
-  const completedTask = taskList?.filter((item) => item.status === "completed");
-  const NYCTask = taskList?.filter(
-    (item) => item.status === "not yet completed"
-  );
+  const completedTask = temp?.filter((item) => item.status === "completed");
+  const NYCTask = temp?.filter((item) => item.status === "not yet completed");
 
   const buttonTypes = [
     { btn: "All Tasks", value: "all" },
@@ -22,7 +20,7 @@ const Tasks = () => {
 
   const taskListType = () => {
     if (type === "all") {
-      return taskList;
+      return temp;
     }
     if (type === "completed") {
       return completedTask;
@@ -52,7 +50,11 @@ const Tasks = () => {
           </button>
         ))}
       </div>
-
+      {taskListType().length === 0 && (
+        <div className="flex justify-center mt-2 text-3xl text-red-400 font-bold">
+          No task found!
+        </div>
+      )}
       <div className="relative overflow-x-auto mt-4">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -69,8 +71,11 @@ const Tasks = () => {
               <th scope="col" className="px-6 py-3">
                 Status
               </th>
-              <th scope="col" className="px-6 py-3 flex justify-center me-2">
+              <th scope="col" className="px-6 py-3 ">
                 Edit
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Delete
               </th>
             </tr>
           </thead>
@@ -104,12 +109,17 @@ const Tasks = () => {
                 >
                   {item.status}
                 </td>
-                <td className="px-6 py-4 flex justify-center me-2">
+                <td className="px-6 py-4">
                   <Link to={`/${item._id}`}>
                     <button className="flex justify-center items-center gap-2 focus:outline-none bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900 text-white">
                       <FaRegEdit /> Edit
                     </button>
                   </Link>
+                </td>
+                <td className="px-6 py-4">
+                  <button className="flex justify-center items-center gap-2 focus:outline-none bg-red-400 hover:bg-red-500 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900 text-white">
+                    <MdDelete /> Delete
+                  </button>
                 </td>
               </tr>
             ))}

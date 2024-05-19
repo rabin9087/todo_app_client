@@ -31,7 +31,7 @@ const Form = () => {
       <h3 className="text-2xl mb-2 mt-2 text-center">Todo App</h3>
       <hr />
 
-      <div className="block  md:flex justify-center items-center gap-2 p-2">
+      <div className="block text-center md:flex md:justify-center items-center gap-2 p-2">
         <input
           className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
           type="text"
@@ -54,12 +54,14 @@ const Form = () => {
             </option>
           ))}
         </select>
-        <button
-          className="w-[120px] md:w-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          type="submit"
-        >
-          + Add
-        </button>
+        <div className="flex justify-center">
+          <button
+            className="w-full text-center md:w-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded  mt-2 md:mt-0"
+            type="submit"
+          >
+            + Add
+          </button>
+        </div>
       </div>
     </form>
   );
