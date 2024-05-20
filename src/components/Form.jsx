@@ -28,12 +28,9 @@ const Form = () => {
   const priorityLevel = ["Low", "Medium", "High"];
   return (
     <form className="shadow-md rounded" onSubmit={handelOnSubmit}>
-      <h3 className="text-2xl mb-2 mt-2 text-center">Todo App</h3>
-      <hr />
-
       <div className="block text-center md:flex md:justify-center items-center gap-2 p-2">
         <input
-          className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
+          className="w-full md:w-auto shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
           type="text"
           name="task"
           placeholder="Enter new todo item"
@@ -42,7 +39,7 @@ const Form = () => {
         />
 
         <select
-          className="shadow border py-2 px-4 rounded me-2"
+          className="w-full md:w-auto shadow border py-2 px-4 rounded me-2"
           name="priority"
           id=""
           onChange={handelOnChange}

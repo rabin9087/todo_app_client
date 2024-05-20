@@ -22,7 +22,13 @@ function App() {
   }, [localStoragEmail]);
 
   return (
-    <div>
+    <div className="bg-gray-400">
+      <div className="block md:flex">
+        <h3 className="bg-gray-400 font-medium text-2xl text-center pt-4">
+          Todo App
+        </h3>
+      </div>
+
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/:_id" element={<EditPage />}></Route>
