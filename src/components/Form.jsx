@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTaskAction } from "../store/task.action";
+import { addTaskAction, getTasksAction } from "../store/task.action";
 
 export const localStoragEmail = localStorage.getItem("randomEmail");
 const initialFormState = {
@@ -21,8 +21,8 @@ const Form = () => {
 
   const handelOnSubmit = async (e) => {
     e.preventDefault();
-
-    dispatch(addTaskAction(form));
+    await dispatch(addTaskAction(form));
+    return await dispatch(getTasksAction(localStoragEmail));
   };
 
   const priorityLevel = ["Low", "Medium", "High"];
@@ -40,6 +40,7 @@ const Form = () => {
           required
           onChange={handelOnChange}
         />
+
         <select
           className="shadow border py-2 px-4 rounded me-2"
           name="priority"

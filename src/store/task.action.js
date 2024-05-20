@@ -1,6 +1,7 @@
 import { toast } from "react-toastify"
-import { addTask, getATask, getTasks, updateATask } from "../axios/taskAxios"
+import { addTask, deleteATask, getATask, getTasks, updateATask } from "../axios/taskAxios"
 import { setTask, setTaskList } from "./task.slice"
+import { localStoragEmail } from "../components/Form"
 
 export const addTaskAction = (data) => async (dispatch) => {
     const pending = addTask(data)
@@ -45,5 +46,17 @@ export const updateATaskAction = (_id, data) => async (dispatch) => {
 
     if (status === "success") {
         dispatch(setTask(tasks))
+    }
+}
+
+export const deleteATaskAction = (_id) => async (dispatch) => {
+    const pending = deleteATask(_id)
+    toast.promise(pending, {
+        pending: "Pleasw wait... \n deleting task..."
+    })
+    const { status } = await pending
+
+    if (status === "success") {
+        dispatch(getTasksAction(localStoragEmail))
     }
 }

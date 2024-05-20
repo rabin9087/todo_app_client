@@ -29,51 +29,58 @@ const EditTask = () => {
   useEffect(() => {
     if (_id !== "") {
       dispatch(getATaskAction(_id));
-      setForm(task);
     }
   }, [_id, dispatch]);
+
+  useEffect(() => {
+    setForm(task);
+  }, [task]);
   return (
-    <div>
+    <div className="flex flex-col gap-2 justify-centerm-2 p-2">
       <Link to="/" className=" ms-3">
-        <button className="bg-gray-600/80">&lt; Back</button>
+        <button className="bg-gray-600/80 rounded-md px-4 py-2">
+          &lt; Back
+        </button>
       </Link>
-      <div className="flex flex-col gap-2 justify-center m-2 p-2">
-        <label htmlFor="task">Change task </label> <br />
-        <input
-          className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
-          type="text"
-          name={"task"}
-          onChange={handelOnChange}
-          value={form.task}
-        />
-        <select
-          className="shadow border py-2 px-4 rounded me-2"
-          name="status"
-          onChange={handelOnChange}
-          value={form.status}
+      <div className="flex justify-center m-2">
+        <span className="text-2xl font-bold underline">Update Task</span>
+        <hr />
+      </div>
+
+      <input
+        className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
+        type="text"
+        name={"task"}
+        onChange={handelOnChange}
+        value={form.task}
+      />
+      <select
+        className="shadow border py-2 px-4 rounded me-2"
+        name="status"
+        onChange={handelOnChange}
+        value={form.status}
+      >
+        <option value={"completed"}>--Completed--</option>
+        <option value={"not yet completed"}>--Not Yet Completed--</option>
+      </select>
+      <select
+        className="shadow border py-2 px-4 rounded me-2"
+        name="priority"
+        onChange={handelOnChange}
+        value={form.priority}
+      >
+        <option value={"Low"}>--Low--</option>
+        <option value={"Medium"}>--Medium--</option>
+        <option value={"High"}>--High--</option>
+      </select>
+      <div className="flex justify-center">
+        <button
+          type="submit"
+          className="w-[120px] md:w-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={handelOnSubmit}
         >
-          <option value={"completed"}>--Completed--</option>
-          <option value={"not yet completed"}>--Not Yet Completed--</option>
-        </select>
-        <select
-          className="shadow border py-2 px-4 rounded me-2"
-          name="priority"
-          onChange={handelOnChange}
-          value={form.priority}
-        >
-          <option value={"Low"}>--Low--</option>
-          <option value={"Medium"}>--Medium--</option>
-          <option value={"High"}>--High--</option>
-        </select>
-        <div className="flex justify-center">
-          <button
-            type="submit"
-            className="w-[120px] md:w-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={handelOnSubmit}
-          >
-            Update
-          </button>
-        </div>
+          Update
+        </button>
       </div>
     </div>
   );

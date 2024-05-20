@@ -2,13 +2,20 @@
 // import { useSelector, useDispatch } from "react-redux";
 // import { getTasksAction } from "../store/task.action";
 import { FaRegEdit } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
+import {
+  deleteATaskAction,
+  getTasksAction,
+  updateATaskAction,
+} from "../store/task.action";
+import { localStoragEmail } from "./Form";
 
 const Tasks = ({ temp }) => {
   const [type, setType] = useState("all");
+  const dispatch = useDispatch();
   const completedTask = temp?.filter((item) => item.status === "completed");
   const NYCTask = temp?.filter((item) => item.status === "not yet completed");
 
@@ -29,6 +36,26 @@ const Tasks = ({ temp }) => {
       return NYCTask;
     }
   };
+
+  const handelOnDelete = (_id, task) => {
+    if (window.confirm(`Are you sure want to delete ${task} task?`)) {
+      return dispatch(deleteATaskAction(_id));
+    }
+  };
+
+  const handelOnChecked = async (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      await dispatch(updateATaskAction(value, { status: "completed" }));
+    } else {
+      await dispatch(updateATaskAction(value, { status: "not yet completed" }));
+    }
+    return dispatch(getTasksAction(localStoragEmail));
+  };
+
+  useEffect(() => {
+    dispatch(getTasksAction(localStoragEmail));
+  }, [dispatch]);
   return (
     <div>
       <div
@@ -50,6 +77,7 @@ const Tasks = ({ temp }) => {
           </button>
         ))}
       </div>
+
       {taskListType().length === 0 && (
         <div className="flex justify-center mt-2 text-3xl text-red-400 font-bold">
           No task found!
@@ -85,10 +113,7 @@ const Tasks = ({ temp }) => {
                 key={i}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:opacity-95"
               >
-                <td className="px-6 py-4">
-                  <input type="checkbox" className="me-2" />
-                  {i + 1}.{" "}
-                </td>
+                <td className="px-6 py-4">{i + 1}. </td>
                 <td className="px-6 py-4">{item.task}</td>
                 <td
                   className={
@@ -107,7 +132,20 @@ const Tasks = ({ temp }) => {
                       : "text-red-400 px-6 py-4"
                   }
                 >
-                  {item.status}
+                  <input
+                    type="checkbox"
+                    id={item._id}
+                    onChange={handelOnChecked}
+                    className="ms-1 me-2"
+                    value={item._id}
+                    checked={item.status === "completed"}
+                  />
+                  <label
+                    className="hover:bg-gray-600/60 p-2"
+                    htmlFor={item._id}
+                  >
+                    {item.status}{" "}
+                  </label>
                 </td>
                 <td className="px-6 py-4">
                   <Link to={`/${item._id}`}>
@@ -117,7 +155,10 @@ const Tasks = ({ temp }) => {
                   </Link>
                 </td>
                 <td className="px-6 py-4">
-                  <button className="flex justify-center items-center gap-2 focus:outline-none bg-red-400 hover:bg-red-500 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900 text-white">
+                  <button
+                    className="flex justify-center items-center gap-2 focus:outline-none bg-red-400 hover:bg-red-500 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900 text-white"
+                    onClick={() => handelOnDelete(item._id, item.task)}
+                  >
                     <MdDelete /> Delete
                   </button>
                 </td>

@@ -1,26 +1,36 @@
-import { useState } from "react";
-import Form from "../components/Form";
+import { useEffect, useState } from "react";
+import Form, { localStoragEmail } from "../components/Form";
 import Search from "../components/Search";
 import Tasks from "../components/Tasks";
-import { useSelector } from "react-redux";
-import { FaSearch } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { getTasksAction } from "../store/task.action";
 
-const Home = () => {
-  const priorityLevel = ["Low", "Medium", "High"];
+export const Home = ({ children }) => {
   const [type, setType] = useState();
-
+  const dispatch = useDispatch();
   const { taskList } = useSelector((state) => state.taskInfo);
   const [temp, setTemp] = useState(taskList);
 
   const handelOnChange = (e) => {
     const { name, value } = e.target;
-
     setType({ ...type, [name]: value });
   };
 
+  useState(() => {
+    if (!taskList?.length && !temp.length) {
+      dispatch(getTasksAction(localStoragEmail));
+      setTemp(taskList);
+    }
+  }, []);
+
+  useEffect(() => {
+    setTemp(taskList);
+  }, [taskList]);
   return (
     <div className="flex flex-col justify-center">
-      <div className="block md:flex justify-around">
+      <div className="block md:flex justify-around ">
+        <div></div>
+        <div></div>
         <Form />
         <div className="md:flex relative items-center ">
           <Search
@@ -32,8 +42,8 @@ const Home = () => {
           />
         </div>
       </div>
-
-      <Tasks temp={temp} />
+      <div>{children}</div>
+      {(children && <></>) || <Tasks temp={temp} />}
     </div>
   );
 };
