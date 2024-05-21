@@ -129,8 +129,8 @@ const Tasks = ({ temp }) => {
                 <td
                   className={
                     item.status === "completed"
-                      ? "text-green-400 px-6 py-4"
-                      : "text-red-400 px-6 py-4"
+                      ? "flex w-full text-green-400 px-6 py-4"
+                      : "flex w-full text-red-400 px-6 py-4"
                   }
                 >
                   <input
@@ -142,7 +142,7 @@ const Tasks = ({ temp }) => {
                     checked={item.status === "completed"}
                   />
                   <label
-                    className="hover:bg-gray-600/60 p-2"
+                    className="hover:bg-gray-600/60 p-2 w-full"
                     htmlFor={item._id}
                   >
                     {item.status}{" "}
