@@ -2,22 +2,16 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
-import randomEmail from "random-email";
-import EditTask from "./components/EditTask";
+
 import EditPage from "./pages/EditPage";
+import { randomEmailAddress } from "./util/exportFile";
 
 function App() {
   const localStoragEmail = localStorage.getItem("randomEmail");
 
-  const randomEmailAddress = () => {
-    return localStorage.setItem(
-      "randomEmail",
-      randomEmail({ domain: "shahkiranaPasal.com" })
-    );
-  };
   useEffect(() => {
     if (localStoragEmail === "" || localStoragEmail === null) {
-      randomEmailAddress();
+      return randomEmailAddress();
     }
   }, [localStoragEmail]);
 

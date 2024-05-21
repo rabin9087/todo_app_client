@@ -1,11 +1,15 @@
 import { FaSearch } from "react-icons/fa";
-
-const Search = ({ temp, setTemp, placeholder, taskList }) => {
+import PropTypes from "prop-types";
+const Search = ({ setTemp, placeholder, taskList }) => {
+  Search.propTypes = {
+    taskList: PropTypes.array,
+    placeholder: PropTypes.string,
+    setTemp: PropTypes.func,
+  };
   const handelOnChange = (e) => {
     const { value } = e.target;
-    console.log(value);
     const filter = taskList?.filter((item) =>
-      item.task.toLowerCase().includes(value)
+      item.task.toLowerCase().includes(value.toLowerCase())
     );
     setTemp(filter);
   };

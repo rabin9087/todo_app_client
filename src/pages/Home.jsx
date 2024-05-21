@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
-import Form, { localStoragEmail } from "../components/Form";
+import Form from "../components/Form";
 import Search from "../components/Search";
 import Tasks from "../components/Tasks";
 import { useDispatch, useSelector } from "react-redux";
 import { getTasksAction } from "../store/task.action";
+import { localStoragEmail } from "../util/exportFile";
+import PropTypes from "prop-types";
 
 export const Home = ({ children }) => {
-  const [type, setType] = useState();
+  Home.propTypes = {
+    children: PropTypes.element,
+  };
   const dispatch = useDispatch();
   const { taskList } = useSelector((state) => state.taskInfo);
   const [temp, setTemp] = useState(taskList);
-
-  const handelOnChange = (e) => {
-    const { name, value } = e.target;
-    setType({ ...type, [name]: value });
-  };
 
   useState(() => {
     if (!taskList?.length && !temp.length) {
@@ -35,7 +34,6 @@ export const Home = ({ children }) => {
         <div className="md:flex relative items-center ">
           <Search
             placeholder={"Search task"}
-            type={type}
             taskList={taskList}
             temp={temp}
             setTemp={setTemp}

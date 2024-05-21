@@ -11,7 +11,7 @@ import {
   getTasksAction,
   updateATaskAction,
 } from "../store/task.action";
-import { localStoragEmail } from "./Form";
+import { localStoragEmail } from "../util/exportFile";
 
 const Tasks = ({ temp }) => {
   const [type, setType] = useState("all");
@@ -52,6 +52,7 @@ const Tasks = ({ temp }) => {
     }
     return dispatch(getTasksAction(localStoragEmail));
   };
+  console.log(localStoragEmail);
 
   useEffect(() => {
     dispatch(getTasksAction(localStoragEmail));

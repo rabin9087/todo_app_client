@@ -1,7 +1,7 @@
 import { toast } from "react-toastify"
 import { addTask, deleteATask, getATask, getTasks, updateATask } from "../axios/taskAxios"
 import { setTask, setTaskList } from "./task.slice"
-import { localStoragEmail } from "../components/Form"
+import { localStoragEmail } from "../util/exportFile"
 
 export const addTaskAction = (data) => async (dispatch) => {
     const pending = addTask(data)

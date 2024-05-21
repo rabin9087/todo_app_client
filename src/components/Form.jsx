@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTaskAction, getTasksAction } from "../store/task.action";
 
-export const localStoragEmail = localStorage.getItem("randomEmail");
 const initialFormState = {
   task: "",
   priority: "",
-  email: localStoragEmail,
+  email: "",
 };
 
 const Form = () => {
@@ -15,15 +14,20 @@ const Form = () => {
 
   const handelOnChange = (e) => {
     const { name, value } = e.target;
-
     setForm({ ...form, [name]: value });
   };
 
   const handelOnSubmit = async (e) => {
     e.preventDefault();
+    const localStoragEmail = localStorage.getItem("randomEmail");
     await dispatch(addTaskAction(form));
-    return await dispatch(getTasksAction(localStoragEmail));
+    return dispatch(getTasksAction(localStoragEmail));
   };
+
+  useEffect(() => {
+    const localStoragEmail = localStorage.getItem("randomEmail");
+    setForm({ email: localStoragEmail });
+  }, []);
 
   const priorityLevel = ["Low", "Medium", "High"];
   return (
