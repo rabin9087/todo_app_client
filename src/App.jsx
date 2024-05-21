@@ -17,10 +17,8 @@ function App() {
 
   return (
     <div className="bg-gray-400">
-      <div className="block md:flex">
-        <h3 className="bg-gray-400 font-medium text-2xl text-center pt-4">
-          Todo App
-        </h3>
+      <div className="flex justify-center">
+        <h3 className="font-medium text-2xl text-center pt-4">Todo App</h3>
       </div>
 
       <Routes>
