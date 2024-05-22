@@ -15,9 +15,6 @@ export const addTaskAction = (data) => async (dispatch) => {
 
 export const getTasksAction = (data) => async (dispatch) => {
     const pending = getTasks(data)
-    // toast.promise(pending, {
-    //     pending: "Please wait"
-    // })
     const { status, tasks } = await pending
 
     if (status === "success") {
